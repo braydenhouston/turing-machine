@@ -41,11 +41,13 @@ def runWord(obj, word):
         if re.search(r'halt', state, re.I):
             halt_state = state
 
-    # print("Start:" + cur_state + "\nFinish:" + halt_state)
+    #print("Start:" + cur_state + "\nFinish:" + halt_state)
 
     while True:
         try:
             to_state = obj[cur_state][word[print_head]]["to"]
+            if re.search(r'halt', to_state, re.I): # In case halt doesn't have it's own transition line
+                return True
         except KeyError:
             if cur_state == halt_state:
                 return True
